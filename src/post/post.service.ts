@@ -72,6 +72,9 @@ export class PostService {
       },
     });
 
+    if (!post) {
+      throw new HttpException('Post not found', HttpStatus.NOT_FOUND);
+    }
     return post.userId;
   }
 }

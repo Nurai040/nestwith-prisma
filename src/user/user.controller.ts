@@ -26,11 +26,15 @@ export class UserController {
     try {
       return await this.userService.getUsers();
     } catch (error) {
-      console.error('Error with fetching the users: ', error);
-      throw new HttpException(
-        'Internal server error',
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      if (error instanceof HttpException) {
+        throw error;
+      } else {
+        console.error('Error with fetching the users: ', error);
+        throw new HttpException(
+          'Internal server error',
+          HttpStatus.INTERNAL_SERVER_ERROR,
+        );
+      }
     }
   }
 
@@ -45,11 +49,15 @@ export class UserController {
       }
       return await this.userService.getUserById(parseInt(id));
     } catch (error) {
-      console.error('Error with fetching the user by ID: ', error);
-      throw new HttpException(
-        'Internal server error',
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      if (error instanceof HttpException) {
+        throw error;
+      } else {
+        console.error('Error with fetching the user by ID: ', error);
+        throw new HttpException(
+          'Internal server error',
+          HttpStatus.INTERNAL_SERVER_ERROR,
+        );
+      }
     }
   }
 
@@ -72,11 +80,15 @@ export class UserController {
       );
       return { message: 'user is updated successfully', user: updatedUser };
     } catch (error) {
-      console.error('Error with updating the user by ID: ', error);
-      throw new HttpException(
-        'Internal server error',
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      if (error instanceof HttpException) {
+        throw error;
+      } else {
+        console.error('Error with updating the user by ID: ', error);
+        throw new HttpException(
+          'Internal server error',
+          HttpStatus.INTERNAL_SERVER_ERROR,
+        );
+      }
     }
   }
 
@@ -92,11 +104,15 @@ export class UserController {
       await this.userService.deleteUserById(parseInt(id));
       return { message: 'user is deleted successfully' };
     } catch (error) {
-      console.error('Error with deleting the user by ID: ', error);
-      throw new HttpException(
-        'Internal server error',
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      if (error instanceof HttpException) {
+        throw error;
+      } else {
+        console.error('Error with deleting the user by ID: ', error);
+        throw new HttpException(
+          'Internal server error',
+          HttpStatus.INTERNAL_SERVER_ERROR,
+        );
+      }
     }
   }
 }

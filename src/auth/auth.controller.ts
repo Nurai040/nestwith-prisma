@@ -17,11 +17,15 @@ export class AuthController {
     try {
       return await this.userService.register(createUserDto);
     } catch (error) {
-      console.error('error with register', error);
-      throw new HttpException(
-        'Internal server error',
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      if (error instanceof HttpException) {
+        throw error;
+      } else {
+        console.error('Error with register: ', error);
+        throw new HttpException(
+          'Internal server error',
+          HttpStatus.INTERNAL_SERVER_ERROR,
+        );
+      }
     }
   }
 
@@ -30,11 +34,15 @@ export class AuthController {
     try {
       return await this.userService.login(createUserDto);
     } catch (error) {
-      console.error('Error with login', error);
-      throw new HttpException(
-        'Internal server error',
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      if (error instanceof HttpException) {
+        throw error;
+      } else {
+        console.error('Error with login: ', error);
+        throw new HttpException(
+          'Internal server error',
+          HttpStatus.INTERNAL_SERVER_ERROR,
+        );
+      }
     }
   }
 }
